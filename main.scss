@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Epilogue", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+
+$headerBG: #7413DC;
+$brightColor: #F74068;
+$titleColor: #FFA9BC;
+$delicateColor: #FFE8ED;
+$highlightColor: #D0D1FB;
+$mainBG: #EFF1F4;
+$mainText: #212F3D;
+$lightText: #A6ACB1;
+$linkColor: #3A92F8;
+$mainNavigation: #8853DD;
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; // Занимает всю высоту экрана, чтобы футер был снизу
+    color: $mainText;
+}
+
+header {
+    background-color: $headerBG;
+    .help {        
+        ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.75em;
+            &:hover {
+                color: $lightText;
+            }
+        }
+    }
+    h1 {
+        color: $titleColor;
+        font-weight: normal;
+        font-size: 2.25em;
+        margin: 1.5em 0 1em;
+    }
+    .menu {
+        ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            margin: 2em 0 1em;
+        }
+        li {
+            border-radius: 1.5em;
+            background-color: $mainNavigation;
+            padding: 0.5em 1.5em;
+            font-weight: bold;
+            .discount {
+                background-color: #72B62B;
+                border-radius: 1em;
+                margin: 0 -1em 0 1em;
+
+                padding: 0.4em;
+            }
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.75em;
+            &:hover {
+                color: $brightColor;
+            }
+            &.active {
+                color: black;
+                &:parent {
+                    background-color: white; // ? Question ?
+                }
+            }
+        }
+        
+    }
+    .search {
+        display: flex;
+    }
+}
+
+main {
+    flex: 1; // Занимает оставшееся пространство, чтобы футер был снизу
+    background-color: $mainBG;
+  }
+
+.promo {
+    display: flex;
+    justify-content: space-between; /* Чтобы блоки были равны по ширине */
+    &_item {
+        flex: 1; /* Заставляет блоки растягиваться на всю доступную ширину */
+        margin-right: 10px; /* Добавить отступ между блоками */
+    }
+    &_item:last-child {
+        margin-right: 0; /* Убираем отступ у последнего элемента */
+    }
+}
+
+.content {
+    display: grid;
+    grid-template-areas: 
+    "popular top10"
+    "hot     faq"
+    "hot     best";
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto auto;
+    align-items: flex-start;
+    gap: 20px;
+    &_item {
+        border: 1px solid black;
+        h2 {
+            font-size: 1.2em;
+        }
+    }
+    .popular {
+        grid-area: popular;
+    }
+    .top10 {
+        grid-area: top10;
+    }
+    .hot {
+        grid-area: hot;
+    }
+    .faq {
+        grid-area: faq;
+    }
+    .best {
+        grid-area: best;
+        background-color: $highlightColor;
+        border-radius: 5px;
+        h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+        }
+    }
+    
+}
+
+
+footer {
+    padding: 1em 0;
+    ul {
+        list-style-type: none;
+    }
+    background-color: white;    
+    .partners {
+        display: flex;
+        justify-content: space-between;
+        li {
+            display: inline-flex;
+            img {
+                max-height: 35px;
+            }
+        }
+    }
+    .categories {
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+        font-size: 0.8em;
+        margin: 2em 0 1em;
+        &_column {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            line-height: 1.8em;
+            &_list {
+                flex: 1; /* Чтобы ссылка "Все..." была снизу*/
+                padding: 0.5em 0 1em;
+                a {
+                    color: $mainText;
+                    text-decoration: none;
+                }
+            }
+            .all {
+                color: $linkColor;
+                text-decoration: none;
+            }
+            .all::after {
+                content: "→";
+            }
+        }
+        a:hover {
+            color: #F74068;
+        }
+    }
+    .links {
+        border-top: 1px solid $lightText;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Позволяет колонкам переноситься на новую строку */
+        gap: 10px; /* Отступы между колонками на случай переноса */
+        margin: 1em 0;
+        padding-top: 1.5em;
+        &_buttons, &_media {
+            display: flex;
+            gap: 10px;
+        }
+        &_buttons {
+            justify-content: flex-start;
+            li {
+                
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+            }            
+            &_partners {
+                border: 1px solid $linkColor;
+                a {
+                    color: $linkColor;
+                }
+            }
+            &_app {
+                background-color: black;
+                a {
+                    color: white;
+                }
+            }
+            a {
+                text-decoration: none;
+                margin: 0 15px;
+            }
+        }
+        &_media {
+            justify-content: flex-end;
+            &_item {
+                color: $lightText;
+                font-size: 2.5em;
+            }
+        }
+        a:hover {
+            color: #7413DC;
+        }
+    }
+    
+    
+}
+
+@mixin page-padding($padding) {
+    padding-left: $padding;
+    padding-right: $padding;
+}
+  
+header, main, footer {
+    @include page-padding(20%);  // Миксин применяется для всех этих блоков
+}
+
+
+/* Мобильная версия */
+@media (max-width: 768px) { /* Ширина экрана до 768px */
+    .container {
+      grid-template-columns: 1fr; /* Одна колонка */
+      grid-template-rows: auto;  /* Высота подстраивается под контент */
+    }
+  }
+

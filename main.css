@@ -1,0 +1,239 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Epilogue", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #212F3D;
+}
+
+header {
+  background-color: #7413DC;
+}
+header .help ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+header .help a {
+  text-decoration: none;
+  color: white;
+  font-size: 0.75em;
+}
+header .help a:hover {
+  color: #A6ACB1;
+}
+header h1 {
+  color: #FFA9BC;
+  font-weight: normal;
+  font-size: 2.25em;
+  margin: 1.5em 0 1em;
+}
+header .menu ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin: 2em 0 1em;
+}
+header .menu li {
+  border-radius: 1.5em;
+  background-color: #8853DD;
+  padding: 0.5em 1.5em;
+  font-weight: bold;
+}
+header .menu li .discount {
+  background-color: #72B62B;
+  border-radius: 1em;
+  margin: 0 -1em 0 1em;
+  padding: 0.4em;
+}
+header .menu a {
+  text-decoration: none;
+  color: white;
+  font-size: 0.75em;
+}
+header .menu a:hover {
+  color: #F74068;
+}
+header .menu a.active {
+  color: black;
+}
+header .menu a.active:parent {
+  background-color: white;
+}
+header .search {
+  display: flex;
+}
+
+main {
+  flex: 1;
+  background-color: #EFF1F4;
+}
+
+.promo {
+  display: flex;
+  justify-content: space-between; /* Чтобы блоки были равны по ширине */
+}
+.promo_item {
+  flex: 1; /* Заставляет блоки растягиваться на всю доступную ширину */
+  margin-right: 10px; /* Добавить отступ между блоками */
+}
+.promo_item:last-child {
+  margin-right: 0; /* Убираем отступ у последнего элемента */
+}
+
+.content {
+  display: grid;
+  grid-template-areas: "popular top10" "hot     faq" "hot     best";
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto auto;
+  align-items: flex-start;
+  gap: 20px;
+}
+.content_item {
+  border: 1px solid black;
+}
+.content_item h2 {
+  font-size: 1.2em;
+}
+.content .popular {
+  grid-area: popular;
+}
+.content .top10 {
+  grid-area: top10;
+}
+.content .hot {
+  grid-area: hot;
+}
+.content .faq {
+  grid-area: faq;
+}
+.content .best {
+  grid-area: best;
+  background-color: #D0D1FB;
+  border-radius: 5px;
+}
+.content .best h2 {
+  font-size: 1.5em;
+  font-weight: normal;
+}
+
+footer {
+  padding: 1em 0;
+  background-color: white;
+}
+footer ul {
+  list-style-type: none;
+}
+footer .partners {
+  display: flex;
+  justify-content: space-between;
+}
+footer .partners li {
+  display: inline-flex;
+}
+footer .partners li img {
+  max-height: 35px;
+}
+footer .categories {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  font-size: 0.8em;
+  margin: 2em 0 1em;
+}
+footer .categories_column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  line-height: 1.8em;
+}
+footer .categories_column_list {
+  flex: 1; /* Чтобы ссылка "Все..." была снизу*/
+  padding: 0.5em 0 1em;
+}
+footer .categories_column_list a {
+  color: #212F3D;
+  text-decoration: none;
+}
+footer .categories_column .all {
+  color: #3A92F8;
+  text-decoration: none;
+}
+footer .categories_column .all::after {
+  content: "→";
+}
+footer .categories a:hover {
+  color: #F74068;
+}
+footer .links {
+  border-top: 1px solid #A6ACB1;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Позволяет колонкам переноситься на новую строку */
+  gap: 10px; /* Отступы между колонками на случай переноса */
+  margin: 1em 0;
+  padding-top: 1.5em;
+}
+footer .links_buttons, footer .links_media {
+  display: flex;
+  gap: 10px;
+}
+footer .links_buttons {
+  justify-content: flex-start;
+}
+footer .links_buttons li {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+footer .links_buttons_partners {
+  border: 1px solid #3A92F8;
+}
+footer .links_buttons_partners a {
+  color: #3A92F8;
+}
+footer .links_buttons_app {
+  background-color: black;
+}
+footer .links_buttons_app a {
+  color: white;
+}
+footer .links_buttons a {
+  text-decoration: none;
+  margin: 0 15px;
+}
+footer .links_media {
+  justify-content: flex-end;
+}
+footer .links_media_item {
+  color: #A6ACB1;
+  font-size: 2.5em;
+}
+footer .links a:hover {
+  color: #7413DC;
+}
+
+header, main, footer {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) { /* Ширина экрана до 768px */
+  .container {
+    grid-template-columns: 1fr; /* Одна колонка */
+    grid-template-rows: auto; /* Высота подстраивается под контент */
+  }
+}
+
+/*# sourceMappingURL=main.css.map */
