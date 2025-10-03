@@ -1,268 +1,581 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-family: "Epilogue", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-  }
+  margin: 0;
+  padding: 0;
+  font-family: "Verdana", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
 
-$headerBG: #7413DC;
-$brightColor: #F74068;
-$titleColor: #FFA9BC;
-$delicateColor: #FFE8ED;
-$highlightColor: #D0D1FB;
-$mainBG: #EFF1F4;
-$mainText: #212F3D;
-$lightText: #A6ACB1;
-$linkColor: #3A92F8;
-$mainNavigation: #8853DD;
+$headerBG: #7413dc;
+$brightColor: #f74068;
+$titleColor: #ffa9bc;
+$delicateColor: #ffe8ed;
+$highlightColor: #d0d1fb;
+$mainBG: #eff1f4;
+$mainText: #212f3d;
+$lightText: #a6acb1;
+$linkColor: #3a92f8;
+$mainNavigation: #8853dd;
+$green: #72b62b;
 
+a {
+  color: inherit;
+}
+
+@mixin flex(
+  $align-items: center,
+  $justify-content: center,
+  $flex-direction: column,
+  $gap: 0
+) {
+  display: flex;
+  align-items: $align-items;
+  justify-content: $justify-content;
+  flex-direction: $flex-direction;
+  gap: $gap;
+}
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; // Занимает всю высоту экрана, чтобы футер был снизу
-    color: $mainText;
+  @include flex();
+  min-height: 100vh; // футер снизу
+  color: $mainText;
+}
+
+.wrapper {
+  margin: 0 20%;
+  @media (max-width: 1280px) {
+    margin: 0 10%;
+  }
+  @media (max-width: 600px) {
+    margin: 0 5%;
+  }
+  @include flex(start);
 }
 
 header {
-    background-color: $headerBG;
-    .help {        
-        ul {
-            list-style-type: none;
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-        }
+  color: white;
+  background-color: $headerBG;
+  padding: 1em 0 2em;
+  width: 100%;
+  nav {
+    width: 100%;
+  }
+  .help {
+    ul {
+      list-style-type: none;
+      @include flex(center, end, row, 5%);
+      li {
         a {
-            text-decoration: none;
-            color: white;
-            font-size: 0.75em;
-            &:hover {
-                color: $lightText;
+          text-decoration: none;
+          font-size: 0.75em;
+          &:hover {
+            color: $lightText;
+          }
+          span {
+            @media (max-width: 1024px) {
+              display: none;
+              i:before {
+                display: block;
+              }
             }
+          }
         }
-    }
-    h1 {
-        color: $titleColor;
-        font-weight: normal;
-        font-size: 2.25em;
-        margin: 1.5em 0 1em;
-    }
-    .menu {
-        ul {
-            list-style-type: none;
-            display: flex;
-            justify-content: flex-start;
-            gap: 15px;
-            margin: 2em 0 1em;
+        &.dropmenu {
+          @media (min-width: 1025px) {
+            display: none;
+          }
         }
-        li {
-            border-radius: 1.5em;
-            background-color: $mainNavigation;
-            padding: 0.5em 1.5em;
-            font-weight: bold;
-            .discount {
-                background-color: #72B62B;
-                border-radius: 1em;
-                margin: 0 -1em 0 1em;
+      }
+    }
+  }
+  h1 {
+    color: $titleColor;
+    font-weight: normal;
+    font-size: 2.25em;
+    margin: 1em 0;
+    @media (max-width: 600px) {
+      font-size: 1.5em;
+    }
+  }
+  .menu {
+    ul {
+      list-style-type: none;
+      display: flex;
+      overflow-x: auto; /* разрешаем горизонтальную прокрутку */
+      white-space: nowrap;
+      justify-content: flex-start;
+      gap: 15px;
 
-                padding: 0.4em;
-            }
+      li {
+        color: white;
+        flex: 0 0 auto;
+        border-radius: 1.5em;
+        background-color: $mainNavigation;
+        padding: 0.5em 1.5em;
+        font-size: 0.75em;
+        font-weight: bold;
+        @include flex(center, center, row);
+        cursor: pointer;
+        .discount {
+          background-color: $green;
+          border-radius: 1em;
+          transform: translateX(0.75em);
+          padding: 0.25em;
+        }
+        &:hover {
+          background-color: white;
+          a {
+            color: black;
+          }
         }
         a {
-            text-decoration: none;
-            color: white;
-            font-size: 0.75em;
-            &:hover {
-                color: $brightColor;
-            }
-            &.active {
-                color: black;
-                &:parent {
-                    background-color: white; // ? Question ?
-                }
-            }
+          line-height: 100%;
+          text-decoration: none;
         }
-        
+      }
     }
-    .search {
-        display: flex;
+  }
+
+  .search {
+    @include flex(center, space-between, row, 10px);
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: white;
+    button {
+      height: 100%;
+      border: none;
+      padding: 0 1em;
+      color: white;
+      background-color: $brightColor;
     }
+  }
+  .complex {
+    text-decoration: none;
+    font-size: 0.8em;
+    &:hover {
+      color: $lightText;
+    }
+  }
+  .wrapper {
+    gap: 1em;
+  }
 }
 
 main {
-    flex: 1; // Занимает оставшееся пространство, чтобы футер был снизу
-    background-color: $mainBG;
-  }
+  flex: 1; // Занимает оставшееся пространство, чтобы футер был снизу
+  background-color: $mainBG;
+}
 
 .promo {
-    display: flex;
-    justify-content: space-between; /* Чтобы блоки были равны по ширине */
+  @include flex(stretch, space-between, row, 1em);
+  width: 100%;
+  .telegram {
+    background: white url(./images/pics/telegrambot8.png) no-repeat 95% 100%;
+    button {
+      background-color: $delicateColor;
+      color: $brightColor;
+    }
+  }
+  .bus {
+    background: white url(./images/pics/bus.png) no-repeat 100% 90%;
+    button {
+      background-color: $brightColor;
+      color: white;
+    }
+  }
+  &_item {
+    background: white;
+    box-shadow: -1px 1px 10px rgba(100, 100, 100, 30%);
+    width: 49%;
+    border-radius: 5px;
+    padding: 3%;
+    @include flex(start, center, column, 1em);
+    h3 {
+      font-size: 1.1em;
+      font-weight: normal;
+    }
+    ul {
+      padding-right: 130px;
+      li {
+        list-style-type: none;
+        display: inline;
+        margin-right: 0.5em;
+        &::before {
+          content: "✓";
+          color: $green;
+          margin-right: 0.25em;
+          font-weight: bold;
+        }
+      }
+    }
+    button {
+      border: none;
+      cursor: pointer;
+      padding: 1em;
+      box-shadow: -1px 1px 10px rgba(100, 100, 100, 30%);
+      border-radius: 5px;
+      &:hover {
+        box-shadow: -1px 1px 10px rgba(100, 100, 100, 30%) inset;
+      }
+    }
+  }
+  @media (max-width: 1024px) {
+    flex-direction: column;
     &_item {
-        flex: 1; /* Заставляет блоки растягиваться на всю доступную ширину */
-        margin-right: 10px; /* Добавить отступ между блоками */
+      width: 94%;
     }
-    &_item:last-child {
-        margin-right: 0; /* Убираем отступ у последнего элемента */
-    }
+  }
 }
 
 .content {
-    display: grid;
-    grid-template-areas: 
+  display: grid;
+  grid-template-areas:
     "popular top10"
     "hot     faq"
     "hot     best";
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto auto;
-    align-items: flex-start;
-    gap: 20px;
-    &_item {
-        border: 1px solid black;
-        h2 {
-            font-size: 1.2em;
-        }
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto auto;
+  align-items: flex-start;
+  gap: 20px;
+  @media (max-width: 1024px) {
+    @include flex(stretch, center, column, 1em);
+  }
+  article,
+  .best {
+    border-radius: 5px;
+    box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+  }
+  .best {
+    padding: 0.1em 1em;
+  }
+  &_item {
+    h2 {
+      font-size: 1.2em;
+      margin: 20px 0;
+      font-weight: normal;
     }
-    .popular {
-        grid-area: popular;
-    }
-    .top10 {
-        grid-area: top10;
-    }
-    .hot {
-        grid-area: hot;
-    }
-    .faq {
-        grid-area: faq;
-    }
-    .best {
-        grid-area: best;
-        background-color: $highlightColor;
-        border-radius: 5px;
-        h2 {
-            font-size: 1.5em;
-            font-weight: normal;
-        }
-    }
-    
-}
+    article {
+      background-color: white;
 
-
-footer {
-    padding: 1em 0;
-    ul {
-        list-style-type: none;
-    }
-    background-color: white;    
-    .partners {
-        display: flex;
-        justify-content: space-between;
-        li {
-            display: inline-flex;
-            img {
-                max-height: 35px;
-            }
-        }
-    }
-    .categories {
-        display: flex;
-        justify-content: space-between;
-        gap: 25px;
+      h3 {
+        // margin: 1.25em 0 0.5em;
+        font-weight: normal;
+        font-size: 1.1em;
+      }
+      p {
+        color: $lightText;
         font-size: 0.8em;
-        margin: 2em 0 1em;
-        &_column {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            line-height: 1.8em;
-            &_list {
-                flex: 1; /* Чтобы ссылка "Все..." была снизу*/
-                padding: 0.5em 0 1em;
-                a {
-                    color: $mainText;
-                    text-decoration: none;
-                }
-            }
-            .all {
-                color: $linkColor;
-                text-decoration: none;
-            }
-            .all::after {
-                content: "→";
-            }
-        }
-        a:hover {
-            color: #F74068;
-        }
-    }
-    .links {
-        border-top: 1px solid $lightText;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap; /* Позволяет колонкам переноситься на новую строку */
-        gap: 10px; /* Отступы между колонками на случай переноса */
+        line-height: 1.6em;
         margin: 1em 0;
-        padding-top: 1.5em;
-        &_buttons, &_media {
-            display: flex;
-            gap: 10px;
-        }
-        &_buttons {
-            justify-content: flex-start;
-            li {
-                
-                border-radius: 5px;
-                display: flex;
-                align-items: center;
-            }            
-            &_partners {
-                border: 1px solid $linkColor;
-                a {
-                    color: $linkColor;
-                }
-            }
-            &_app {
-                background-color: black;
-                a {
-                    color: white;
-                }
-            }
-            a {
-                text-decoration: none;
-                margin: 0 15px;
-            }
-        }
-        &_media {
-            justify-content: flex-end;
-            &_item {
-                color: $lightText;
-                font-size: 2.5em;
-            }
-        }
-        a:hover {
-            color: #7413DC;
-        }
-    }
-    
-    
-}
-
-@mixin page-padding($padding) {
-    padding-left: $padding;
-    padding-right: $padding;
-}
-  
-header, main, footer {
-    @include page-padding(20%);  // Миксин применяется для всех этих блоков
-}
-
-
-/* Мобильная версия */
-@media (max-width: 768px) { /* Ширина экрана до 768px */
-    .container {
-      grid-template-columns: 1fr; /* Одна колонка */
-      grid-template-rows: auto;  /* Высота подстраивается под контент */
+      }
     }
   }
 
+  .popular {
+    grid-area: popular;
+
+    article {
+      @media (min-width: 1601px) {
+        column-count: 2;
+        gap: 0;
+        li {
+          height: 3em;
+        }
+      }
+
+      li {
+        list-style-type: none;
+        padding: 0.75em;
+        line-height: 1.5em;
+        // height: 2em;
+        border-bottom: 1px solid $lightText;
+        @include flex(center, space-between, row);
+        @media (max-width: 1024px) {
+          flex-direction: column;
+        }
+        @media (max-width: 600px) {
+          align-items: start;
+        }
+        a {
+          text-decoration: none;
+          &:hover {
+            color: $brightColor;
+          }
+        }
+        b {
+          font-weight: normal;
+          color: $brightColor;
+        }
+      }
+    }
+  }
+  .top10 {
+    grid-area: top10;
+
+    &_header {
+      @include flex(center, space-between, row);
+      margin: 20px 0;
+      flex-wrap: wrap;
+      h2 {
+        margin: 0;
+      }
+      a {
+        text-decoration: none;
+        color: $linkColor;
+        font-size: 0.8em;
+        &:hover {
+          color: $brightColor;
+        }
+      }
+    }
+    ol {
+      font-size: 0.95em;
+      padding: 1em 2em;
+      li {
+        &::marker {
+          content: counter(list-item) " "; /* только число и пробел */
+        }
+        div {
+          @include flex(center, space-between, row);
+          a {
+            text-decoration: none;
+            color: $linkColor;
+            &:hover {
+              color: $brightColor;
+            }
+          }
+          b {
+            font-weight: normal;
+            &::before {
+              content: "★";
+              margin-right: 10%;
+              font-size: 1.5em;
+              color: $brightColor;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .hot {
+    grid-area: hot;
+    article {
+      padding: 1em;
+      h3 {
+        font-weight: bold;
+        font-size: 0.9em;
+      }
+    }
+  }
+
+  .faq {
+    grid-area: faq;
+    article {
+      padding: 1em;
+
+      ul {
+        @include flex(start, start, column, 1em);
+        list-style-type: none;
+        a {
+          font-size: 0.95em;
+          text-decoration: none;
+          color: $linkColor;
+          &:hover {
+            color: $brightColor;
+          }
+        }
+      }
+    }
+  }
+
+  .best {
+    grid-area: best;
+    background: $highlightColor;
+    padding: 1em;
+    h2 {
+      margin: 0;
+      font-size: 1.2em;
+      font-weight: normal;
+      padding-right: 120px;
+      position: relative;
+      height: 110px;
+      margin-bottom: 1em;
+      @include flex(start);
+      &::after {
+        content: url(./images/pics/notebook.png);
+        position: absolute;
+        bottom: 50%;
+        transform: translateY(50%);
+        right: 0;
+      }
+    }
+    form {
+      width: 100%;
+      height: 50px;
+      @include flex(stretch, start, row);
+      input {
+        border: 1px solid $brightColor;
+        border-radius: 5px;
+        flex-grow: 1;
+        padding: 0 1em;
+        &::placeholder {
+          color: $brightColor;
+        }
+      }
+      button {
+        color: white;
+        background-color: $brightColor;
+        border: none;
+        border-radius: 5px;
+        width: 50px;
+      }
+    }
+    @media (min-width: 601px) and (max-width: 1024px) {
+      padding: 1em 15%;
+    }
+  }
+}
+
+footer {
+  width: 100%;
+  padding: 2em 0;
+  .wrapper {
+    align-items: stretch;
+    gap: 2em;
+  }
+  ul {
+    list-style-type: none;
+  }
+  background-color: white;
+  .partners {
+    display: flex;
+    justify-content: space-between;
+    li {
+      display: inline-flex;
+      img {
+        max-height: 35px;
+      }
+    }
+  }
+  .categories {
+    border-bottom: 1px solid $lightText;
+    display: flex;
+    @include flex(stretch, space-between, row);
+    font-size: 0.8em;
+    &_column {
+      @include flex(start, start, column, 0.5em);
+      width: 14%;
+      line-height: 1.8em;
+      &_list {
+        flex-grow: 1;
+
+        a {
+          color: $mainText;
+          text-decoration: none;
+        }
+      }
+      h4,
+      &_list {
+        width: 100%;
+      }
+      h4,
+      li,
+      .all {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .all {
+        width: 100%;
+        padding-bottom: 2em;
+        display: block;
+        color: $linkColor;
+        text-decoration: none;
+        &::after {
+          content: " →";
+        }
+      }
+    }
+    a:hover {
+      color: #f74068;
+    }
+    @media (max-width: 1024px) {
+      flex-wrap: wrap;
+
+      &_column {
+        width: 28%;
+      }
+    }
+    @media (max-width: 600px) {
+      flex-direction: column;
+      &_column {
+        width: 100%;
+        border-top: 1px solid $lightText;
+        padding: 1em 0;
+        h4 {
+          @include flex(center, space-between, row);
+          cursor: pointer;
+          &::after {
+            content: ">";
+            display: block;
+            color: $lightText;
+          }
+        }
+        &_list,
+        .all {
+          display: none;
+        }
+      }
+    }
+  }
+  .links {
+    @include flex(center, space-between, row, 1em);
+    &_buttons {
+      @include flex(center, center, row);
+      flex-wrap: wrap;
+      li {
+        border-radius: 5px;
+        @include flex(center, center);
+        padding: 1em;
+      }
+      &_partners {
+        border: 1px solid $linkColor;
+
+        a {
+          color: $linkColor;
+        }
+      }
+      &_app {
+        ul {
+          @include flex(center, center, row, 1em);
+        }
+
+        li {
+          background-color: black;
+          a {
+            color: white;
+          }
+        }
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+    &_media {
+      @include flex(center, end, row, 0.5em);
+      &_item {
+        color: $lightText;
+        font-size: 2.5em;
+      }
+    }
+    a:hover {
+      color: $titleColor;
+    }
+    @media (max-width: 600px) {
+      flex-direction: column;
+      margin: 0 auto;
+    }
+  }
+}
