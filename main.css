@@ -129,21 +129,90 @@ header .menu ul li a {
 }
 header .search {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   flex-direction: row;
-  gap: 10px;
-  height: 50px;
+  gap: 5px;
   width: 100%;
+}
+header .search .inputs {
   border-radius: 5px;
+  overflow: hidden;
   background-color: white;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 0;
+}
+header .search .inputs .cities {
+  flex: 8;
+}
+header .search .inputs .dates {
+  flex: 5;
+}
+header .search .inputs .pass_wrapper {
+  flex: 4;
+}
+header .search .inputs div {
+  border-right: 1px solid #a6acb1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0;
+  min-width: 0;
+}
+header .search .inputs div input:not(:last-child) {
+  border-right: 1px dashed #a6acb1;
+}
+header .search .inputs input {
+  border: none;
+  min-width: 0;
+  flex: 1;
+  padding: 2em 1em;
+}
+header .search .inputs input:focus {
+  outline: none;
 }
 header .search button {
-  height: 100%;
+  cursor: pointer;
   border: none;
-  padding: 0 1em;
+  padding: 1em 2em;
   color: white;
   background-color: #f74068;
+  border-radius: 5px;
+}
+@media (max-width: 1024px) {
+  header .search {
+    align-items: end;
+    flex-direction: column;
+  }
+  header .search .inputs {
+    width: 100%;
+  }
+}
+@media (max-width: 900px) {
+  header .search .inputs {
+    flex-direction: column;
+  }
+  header .search .inputs div {
+    border-right: none;
+    border-bottom: 1px solid #a6acb1;
+  }
+}
+@media (max-width: 400px) {
+  header .search .inputs {
+    flex-direction: column;
+  }
+  header .search .inputs div {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  header .search .inputs div input:not(:last-child) {
+    border-bottom: 1px dashed #a6acb1;
+    border-right: none;
+  }
 }
 header .complex {
   text-decoration: none;
@@ -159,6 +228,84 @@ header .wrapper {
 main {
   flex: 1;
   background-color: #eff1f4;
+  position: relative;
+}
+main #pass_menu {
+  flex-direction: column;
+  gap: 1em;
+  padding: 2em;
+  background-color: white;
+  width: 300px;
+  position: absolute;
+  top: -2em;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+  display: none;
+}
+main #pass_menu .pass_type {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+main #pass_menu p {
+  color: gray;
+  font-weight: bold;
+}
+main #pass_menu button {
+  width: 2em;
+  height: 2em;
+  position: relative;
+  border: none;
+  background-color: white;
+}
+main #pass_menu button::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+main #pass_menu button.plus::after {
+  content: "+";
+}
+main #pass_menu button.plus::after {
+  content: "-";
+}
+main #pass_menu button:disabled {
+  background-color: #eff1f4;
+  box-shadow: none;
+}
+main #pass_menu .pass_class li,
+main #pass_menu button {
+  border-radius: 1em;
+  box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+  cursor: pointer;
+}
+main #pass_menu ul {
+  padding: 0;
+}
+main #pass_menu ul.pass_class {
+  display: flex;
+  gap: 1em;
+}
+main #pass_menu ul.pass_class li {
+  list-style-type: none;
+  padding: 1em;
+  line-height: 0;
+}
+main #pass_menu ul.pass_class li.active {
+  background-color: #f74068;
+  color: white;
+}
+main #pass_menu .ok {
+  width: 100%;
+  margin-top: 1em;
+}
+main #pass_menu .ok:hover {
+  color: white;
+  background-color: #f74068;
 }
 
 .promo {
@@ -170,7 +317,7 @@ main {
   width: 100%;
 }
 .promo .telegram {
-  background: white url(./images/pics/telegrambot8.png) no-repeat 95% 100%;
+  background: white url(./images/pics/telegrambot.png) no-repeat 95% 100%;
 }
 .promo .telegram button {
   background-color: #ffe8ed;
@@ -432,6 +579,7 @@ main {
 .content .best form {
   width: 100%;
   height: 50px;
+  position: relative;
   display: flex;
   align-items: stretch;
   justify-content: start;
@@ -447,12 +595,34 @@ main {
 .content .best form input::placeholder {
   color: #f74068;
 }
+.content .best form input:focus {
+  outline: none;
+}
 .content .best form button {
   color: white;
   background-color: #f74068;
   border: none;
   border-radius: 5px;
   width: 50px;
+  cursor: pointer;
+}
+.content .best form::after {
+  content: "!";
+  background: #ff5252;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  position: absolute;
+  top: -1em;
+  right: 5em;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
 }
 @media (min-width: 601px) and (max-width: 1024px) {
   .content .best {

@@ -46,11 +46,24 @@
           </ul>
         </nav>
         <form action="" class="search">
-          <div>Откуда</div>
-          <div>Куда</div>
-          <div>Туда</div>
-          <div>Обратно</div>
-          <div>Пассажиры</div>
+          <div class="inputs">
+            <div class="cities">
+              <input id="from" type="text" placeholder="Откуда" />
+              <input id="to" type="text" placeholder="Куда" />
+            </div>
+            <div class="dates">
+              <input id="forth" type="text" placeholder="Когда" />
+              <input id="back" type="text" placeholder="Обратно" />
+            </div>
+            <div class="pass_wrapper">
+              <input
+                id="passengers"
+                type="text"
+                placeholder="Пассажиры, класс"
+                value="1, любой"
+              />
+            </div>
+          </div>
           <button>Найти</button>
         </form>
         <a href="#" class="complex">
@@ -133,7 +146,7 @@
             </div>
             <article>
               <ol>
-                <li>
+                <!-- <li>
                   <div><a href="#">Эмирейтс</a> <b>4.7</b></div>
                 </li>
                 <li>
@@ -162,7 +175,7 @@
                 </li>
                 <li>
                   <div><a href="#">Эйр Нью Зиланд</a> <b>4.5</b></div>
-                </li>
+                </li> -->
               </ol>
             </article>
           </div>
@@ -234,11 +247,47 @@
           <div class="content_item best">
             <h2>Лучшие предложения для путешествий</h2>
             <form action="">
-              <input type="text" placeholder="Email*" />
+              <input id="email" type="text" placeholder="Email*" />
               <button type="submit">></button>
             </form>
           </div>
         </section>
+      </div>
+      <div id="pass_menu">
+        <p>Максимум 9 пассажиров</p>
+        <ul class="pass_number">
+          <li class="pass_type" data-type="adults">
+            <span>Взрослые</span>
+            <div class="list_btns-box">
+              <button type="button" class="list_btn minus">-</button>
+              <span class="counter">1</span>
+              <button type="button" class="list_btn plus">+</button>
+            </div>
+          </li>
+          <li class="pass_type" data-type="children">
+            <span>Дети</span>
+            <div class="list_btns-box">
+              <button type="button" class="list_btn minus">-</button>
+              <span class="counter">0</span>
+              <button type="button" class="list_btn plus">+</button>
+            </div>
+          </li>
+          <li class="pass_type" data-type="babies">
+            <span>Младенцы</span>
+            <div class="list_btns-box">
+              <button type="button" class="list_btn minus">-</button>
+              <span class="counter">0</span>
+              <button type="button" class="list_btn plus">+</button>
+            </div>
+          </li>
+        </ul>
+        <p>Класс</p>
+        <ul class="pass_class">
+          <li>Любой</li>
+          <li>Бизнес</li>
+          <li>Эконом</li>
+        </ul>
+        <button class="ok">OK</button>
       </div>
     </main>
     <footer>
@@ -358,5 +407,6 @@
         </div>
       </div>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>

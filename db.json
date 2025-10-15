@@ -1,0 +1,22 @@
+{
+  "companies": [
+    { "id": 1, "name": "Эмирейтс", "rating": 4.7 },
+    { "id": 2, "name": "Qatar Airways", "rating": 4.7 },
+    { "id": 3, "name": "Тюркиш Эрлайнз", "rating": 4.7 },
+    { "id": 4, "name": "Delta Air Lines", "rating": 4.3 },
+    { "id": 5, "name": "United Airlines", "rating": 4.3 },
+    { "id": 6, "name": "Сингапур Эйрлайнз", "rating": 4.7 },
+    { "id": 7, "name": "Кореан Эйр", "rating": 4.7 },
+    { "id": 8, "name": "Этихад Эйрвэйз", "rating": 4.6 },
+    { "id": 9, "name": "Катай Пасифик", "rating": 4.5 },
+    { "id": 10, "name": "Эйр Астана", "rating": 4.5 },
+    { "id": 11, "name": "Верджин Атлантик Эйрвэйз", "rating": 4.5 },
+    { "id": 12, "name": "Эйр Нью Зиланд", "rating": 4.5 },
+    { "id": 13, "name": "Lufthansa", "rating": 4.4 },
+    { "id": 14, "name": "Air France", "rating": 4.4 },
+    { "id": 15, "name": "American Airlines", "rating": 4.4 },
+    { "id": 15, "name": "Wizz Air Украина", "rating": 4.2 },
+    { "id": 15, "name": "Ryanair", "rating": 4.2 },
+    { "id": 15, "name": "Air Baltic", "rating": 4.2 }
+  ]
+}
