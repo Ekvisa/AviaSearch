@@ -48,8 +48,22 @@
         <form action="" class="search">
           <div class="inputs">
             <div class="cities">
-              <input id="from" type="text" placeholder="Откуда" />
-              <input id="to" type="text" placeholder="Куда" />
+              <!-- <input id="from" type="text" placeholder="Откуда" />
+              <input id="to" type="text" placeholder="Куда" /> -->
+              <select name="city" id="from">
+                <option value="">Откуда</option>
+                <!-- <option value="petersburg">Санкт-Петербург</option>
+                <option value="samara">Самара</option>
+                <option value="perm">Пермь</option>
+                <option value="novosibirsk">Новосибирск</option> -->
+              </select>
+              <select name="city" id="to">
+                <option value="">Куда</option>
+                <!-- <option value="petersburg">Санкт-Петербург</option>
+                <option value="samara">Самара</option>
+                <option value="perm">Пермь</option>
+                <option value="novosibirsk">Новосибирск</option> -->
+              </select>
             </div>
             <div class="dates">
               <input id="forth" type="text" placeholder="Когда" />
@@ -253,6 +267,25 @@
           </div>
         </section>
       </div>
+
+      <div id="calendar_wrapper">
+        <div id="calendar">
+          <div class="calendarsheet">
+            <button type="button" id="prev">&lt</button>
+            <div class="month"></div>
+            <ul class="week"></ul>
+            <ul class="dates"></ul>
+          </div>
+          <div class="calendarsheet">
+            <button type="button" id="next">&gt</button>
+            <div class="month"></div>
+            <ul class="week"></ul>
+            <ul class="dates"></ul>
+          </div>
+        </div>
+        <button class="ok">OK</button>
+      </div>
+
       <div id="pass_menu">
         <p>Максимум 9 пассажиров</p>
         <ul class="pass_number">

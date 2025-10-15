@@ -165,22 +165,23 @@ header {
 
         @include flex(center, center, row, 0);
         min-width: 0;
-        input {
-          &:not(:last-child) {
-            border-right: 1px dashed $lightText;
-          }
+
+        :not(:last-child) {
+          border-right: 1px dashed $lightText;
         }
       }
-      input {
+      input,
+      select {
         border: none;
-
         min-width: 0;
         flex: 1;
         padding: 2em 1em;
-
         &:focus {
           outline: none;
         }
+      }
+      select {
+        background-color: white;
       }
     }
     button {
@@ -213,11 +214,10 @@ header {
         div {
           flex-direction: column;
           align-items: stretch;
-          input {
-            &:not(:last-child) {
-              border-bottom: 1px dashed $lightText;
-              border-right: none;
-            }
+
+          :not(:last-child) {
+            border-bottom: 1px dashed $lightText;
+            border-right: none;
           }
         }
       }
@@ -315,6 +315,118 @@ main {
       }
       width: 100%;
       margin-top: 1em;
+    }
+  }
+  #calendar_wrapper {
+    display: none;
+    padding: 1em;
+    gap: 1em;
+    background-color: white;
+
+    position: absolute;
+    top: -2em;
+    left: 50%;
+    transform: translateX(-50%);
+    @include shadowed();
+    .ok {
+      margin: 1em auto 0;
+      display: block;
+      padding: 1em;
+      border-radius: 2em;
+      box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+      cursor: pointer;
+      background: $brightColor;
+      border: none;
+    }
+  }
+  #calendar {
+    display: flex;
+    gap: 1em;
+    .calendarsheet {
+      position: relative;
+    }
+    button {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      background: transparent;
+      border: none;
+      font-weight: bold;
+      color: gray;
+      &#prev {
+        left: 10px;
+      }
+      &#next {
+        right: 10px;
+      }
+    }
+
+    .month {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .week {
+      width: 100%;
+      display: flex;
+      li {
+        color: gray;
+        font-weight: bold;
+      }
+    }
+
+    .dates {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    li {
+      width: calc(100% / 7);
+      box-sizing: border-box;
+      text-align: center;
+      color: grey;
+      list-style-type: none;
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      padding: 0.5em;
+      margin: 2px 0;
+    }
+
+    .active {
+      color: black;
+    }
+
+    .today {
+      background-color: lightgray;
+      border-radius: 5px;
+    }
+
+    .selected {
+      border-top: 1px solid $lightText;
+      border-bottom: 1px solid $lightText;
+      background-color: $delicateColor;
+    }
+
+    .borderdate,
+    .startdate,
+    .enddate {
+      background-color: $brightColor;
+      color: white;
+    }
+
+    .borderdate {
+      border-radius: 5px;
+    }
+
+    .startdate {
+      border-left: 1px solid $lightText;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    .enddate {
+      border-right: 1px solid $lightText;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
   }
 }

@@ -1,3 +1,5 @@
+//////////////////////////////////////////////////////////////////////////////////
+// Заполнение количества пассажиров и типа билетов:
 const openPassMenu = document.querySelector("#passengers");
 const passMenu = document.querySelector("#pass_menu");
 const okPass = passMenu.querySelector(".ok");
@@ -123,6 +125,7 @@ function switchButtons(btns, isAvailable) {
   elements.forEach((b) => (b.disabled = !isAvailable));
 }
 
+//////////////////////////////////////////////////////////////////////////////////
 //Вытащим топ-10 компаний из джейсона:
 function getCompanies() {
   fetch("http://localhost:3000/companies")
@@ -151,3 +154,250 @@ function showCompanies(arr) {
     ol.append(li);
   });
 }
+
+//////////////////////////////////////////////////////////////////////////////////
+// Выбор дат из календаря:
+const monthsNames = [
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь",
+];
+const daysOfWeek = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"];
+
+let date = new Date();
+const CUR_MONTH = date.getMonth();
+// let visibleMonth = CUR_MONTH;
+const CUR_YEAR = date.getFullYear();
+// let visibleYear = CUR_YEAR;
+const CUR_DAY = date.getDate();
+
+//Определим первый и второй календарные листы:
+let sheet1 = document.getElementsByClassName("calendarsheet")[0];
+let sheet2 = document.getElementsByClassName("calendarsheet")[1];
+
+// Первому листу зададим текущие год и месяц:
+sheet1.dataset.year = CUR_YEAR;
+sheet1.dataset.month = CUR_MONTH;
+
+const next = new Date(CUR_YEAR, CUR_MONTH + 1);
+sheet2.dataset.year = next.getFullYear();
+sheet2.dataset.month = next.getMonth();
+
+let isIntervalStarted = false;
+let startDate;
+let endDate;
+let selectedRange = [];
+
+function showMonth(s) {
+  // Подпишем календарный лист месяцем и годом:
+  let year = +s.dataset.year;
+  let month = +s.dataset.month;
+  let VisMonthTitle = s.querySelector(".month");
+  VisMonthTitle.textContent = `${monthsNames[month]} ${year}`;
+
+  // И удалим старые даты:
+  clearSheet(s);
+
+  // Будем заполнять пустотами дни предыдущего месяца.
+  // Для этого найдём первую и последнюю даты, которые будем показывать на календарном листе:
+  let lastDateOfPrevMonth = new Date(year, month, 0); // последняя дата предыдущего месяца
+  let lastDayOfPrevMonth = lastDateOfPrevMonth.getDay(); // день недели последней даты предыдущего месяца от 0 до 6 (от вс до сб)
+  let firstDateInSheet = new Date(lastDateOfPrevMonth);
+  firstDateInSheet.setDate(firstDateInSheet.getDate() - lastDayOfPrevMonth + 1); // дата первого дня на календарном листе (+1 из-за начала недели с пн)
+  let lastDateOfVisMonth = new Date(year, month + 1, 0); // последняя дата отображаемого месяца, она же последняя дата на календарном листе
+  printDates(s, firstDateInSheet, lastDateOfVisMonth);
+}
+
+function printDates(s, fromDate, toDate) {
+  // Заполним календарный лист новыми датами:
+  let dateForOutput = new Date(fromDate);
+  const today = new Date();
+  while (dateForOutput <= toDate) {
+    let dateElement = document.createElement("li");
+    // Заполним данными элементы дней отображаемого месяца:
+    if (dateForOutput.getMonth() === +s.dataset.month) {
+      dateElement.dataset.date = dateForOutput.getDate();
+      dateElement.dataset.month = dateForOutput.getMonth();
+      dateElement.dataset.year = dateForOutput.getFullYear();
+      dateElement.textContent = dateElement.dataset.date;
+      // Если выводимая дата не раньше сегодняшней, сделаем её активной для выбора и повесим на неё обработчик:
+      if (compareDates(dateForOutput, today) >= 0) {
+        dateElement.classList.add("active");
+        dateElement.addEventListener("click", (event) => {
+          createRange(event.target);
+        });
+        // ...а если ещё и равна сегодняшней, то пометим её дополнительным классом:
+        if (compareDates(dateForOutput, today) === 0) {
+          dateElement.classList.add("today");
+        }
+      }
+      // Если обрабатываемый элемент выбран началом интервала, пометим его классом:
+      if (isIntervalStarted) {
+        if (compareDates(dateForOutput, selectedRange[0]) === 0) {
+          dateElement.classList.add("borderdate");
+        }
+      } else {
+        // Если обрабатываемый элемент выбран концом интервала, пометим классами граничные и промежуточные дни интервала:
+        if (selectedRange.length > 0) {
+          if (
+            selectedRange.some(
+              (item) => compareDates(item, dateForOutput) === 0
+            )
+          ) {
+            dateElement.classList.add("selected");
+            if (compareDates(dateForOutput, selectedRange[0]) === 0) {
+              dateElement.classList.add("startdate");
+            }
+            if (
+              compareDates(
+                dateForOutput,
+                selectedRange[selectedRange.length - 1]
+              ) === 0
+            ) {
+              dateElement.classList.add("enddate");
+            }
+          }
+        }
+      }
+    }
+    let sheetDates = s.querySelector(".dates");
+    sheetDates.append(dateElement);
+    dateForOutput.setDate(dateForOutput.getDate() + 1);
+  }
+
+  function createRange(d) {
+    if (!isIntervalStarted) {
+      // Если это первый клик, то поместим в массив кликнутую дату
+      selectedRange = [];
+      startDate = new Date(d.dataset.year, d.dataset.month, d.dataset.date);
+      selectedRange.push(startDate);
+      isIntervalStarted = true;
+      showMonth(sheet1);
+      showMonth(sheet2);
+    } else {
+      // Если это второй клик, то поместим в массив весь интервал
+      endDate = new Date(d.dataset.year, d.dataset.month, d.dataset.date);
+      isIntervalStarted = false;
+      if (startDate > endDate) [startDate, endDate] = [endDate, startDate];
+      // Поместим даты в поля:
+      document.querySelector(".dates input#forth").value =
+        startDate.toLocaleDateString("ru-RU");
+      document.querySelector(".dates input#back").value =
+        endDate.toLocaleDateString("ru-RU");
+
+      selectedRange = getDatesBetween(startDate, endDate);
+      showMonth(sheet1);
+      showMonth(sheet2);
+      return selectedRange;
+    }
+  }
+}
+
+function compareDates(a, b) {
+  //Уберём у дат время и сравним полученные даты:
+  return a.setHours(0, 0, 0, 0) - b.setHours(0, 0, 0, 0);
+}
+
+function getDatesBetween(start, end) {
+  const dates = [];
+  const current = new Date(start);
+  while (current <= end) {
+    dates.push(new Date(current));
+    current.setDate(current.getDate() + 1);
+  }
+  return dates;
+}
+
+function createCalendar() {
+  // Повесим события на кнопки и создадим два календарных листа:
+  document.getElementById("next").addEventListener("click", () => showNext());
+  document.getElementById("prev").addEventListener("click", () => showPrev());
+
+  showMonth(sheet1);
+  fillWeekTitles(sheet1);
+  showMonth(sheet2);
+  fillWeekTitles(sheet2);
+}
+
+function fillWeekTitles(sheet) {
+  let title = sheet.querySelector(".week");
+  daysOfWeek.forEach((item) => {
+    let day = document.createElement("li");
+    day.textContent = item;
+    title.append(day);
+  });
+}
+
+function showNext() {
+  // Зададим первому листу данные второго:
+  sheet1.dataset.month = +sheet2.dataset.month;
+  sheet1.dataset.year = +sheet2.dataset.year;
+  // А второму листу зададим данные следующего за ним месяца:
+  let m2 = +sheet2.dataset.month + 1;
+  let y2 = +sheet2.dataset.year;
+  if (m2 > 11) {
+    m2 = 0;
+    y2++;
+  }
+  sheet2.dataset.month = m2;
+  sheet2.dataset.year = y2;
+  // И отрисуем месяцы:
+  showMonth(sheet1);
+  showMonth(sheet2);
+}
+
+function showPrev() {
+  // Зададим второму листу данные первого:
+  sheet2.dataset.month = +sheet1.dataset.month;
+  sheet2.dataset.year = +sheet1.dataset.year;
+  // А первому листу зададим данные предшествующего ему месяца:
+  let m1 = +sheet1.dataset.month - 1;
+  let y1 = +sheet1.dataset.year;
+  if (m1 < 0) {
+    m1 = 11;
+    y1--;
+  }
+  sheet1.dataset.month = m1;
+  sheet1.dataset.year = y1;
+  // И отрисуем месяцы:
+  showMonth(sheet1);
+  showMonth(sheet2);
+}
+
+function clearSheet(s) {
+  s.querySelector(".dates").innerHTML = "";
+}
+
+createCalendar();
+
+const calendar = document.getElementById("calendar_wrapper");
+
+// let showCalendar = false;
+document.querySelectorAll(".dates input").forEach((e) =>
+  e.addEventListener("click", () => {
+    console.log(calendar);
+    calendar.style.display = "block";
+    // if (showCalendar) {
+    //   calendar.style.display = "none";
+    // } else {
+    //   calendar.style.display = "block";
+    // }
+    // showCalendar = !showCalendar;
+  })
+);
+
+document
+  .querySelector("#calendar_wrapper .ok")
+  .addEventListener("click", () => {
+    console.log(calendar);
+    calendar.style.display = "none";
+  });
