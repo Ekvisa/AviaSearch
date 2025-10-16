@@ -34,10 +34,8 @@
     { "id": 12, "name": "Мадрид", "value": "madrid" },
     { "id": 13, "name": "Киото", "value": "kyoto" },
     { "id": 14, "name": "Венеция", "value": "venice" },
-    { "id": 15, "name": "Москва", "value": "amsterdam" },
-    { "id": 16, "name": "Амстердам", "value": "amsterdam" },
-    { "id": 16, "name": "Париж", "value": "amsterdam" },
-    { "id": 16, "name": "Киев", "value": "amsterdam" },
-    { "id": 16, "name": "Санкт-Петербург", "value": "amsterdam" }
+    { "id": 15, "name": "Амстердам", "value": "amsterdam" },
+    { "id": 16, "name": "Киев", "value": "kyiv" },
+    { "id": 17, "name": "Санкт-Петербург", "value": "saint_petersburg" }
   ]
 }

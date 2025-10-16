@@ -252,6 +252,7 @@ header {
 }
 
 main {
+  padding: 2em 0;
   flex: 1; // Занимает оставшееся пространство, чтобы футер был снизу
   background-color: $mainBG;
   position: relative;

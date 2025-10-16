@@ -236,6 +236,7 @@ header .wrapper {
 }
 
 main {
+  padding: 2em 0;
   flex: 1;
   background-color: #eff1f4;
   position: relative;
