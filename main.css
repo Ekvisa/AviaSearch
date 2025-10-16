@@ -7,6 +7,10 @@
   font-style: normal;
 }
 
+.result {
+  white-space: pre-line;
+}
+
 a {
   color: inherit;
 }
@@ -42,7 +46,7 @@ body {
 
 header {
   color: white;
-  background-color: #7413dc;
+  background-color: #8853dd;
   padding: 1em 0 2em;
   width: 100%;
 }
@@ -62,7 +66,7 @@ header .help ul li a {
   font-size: 0.75em;
 }
 header .help ul li a:hover {
-  color: #a6acb1;
+  color: #ffe8ed;
 }
 @media (max-width: 1024px) {
   header .help ul li a span {
@@ -100,7 +104,7 @@ header .menu ul li {
   color: white;
   flex: 0 0 auto;
   border-radius: 1.5em;
-  background-color: #8853dd;
+  background-color: #7413dc;
   padding: 0.5em 1.5em;
   font-size: 0.75em;
   font-weight: bold;
@@ -121,7 +125,7 @@ header .menu ul li:hover {
   background-color: white;
 }
 header .menu ul li:hover a {
-  color: black;
+  color: #7413dc;
 }
 header .menu ul li a {
   line-height: 100%;
@@ -138,6 +142,7 @@ header .search {
 header .search .inputs {
   border-radius: 5px;
   overflow: hidden;
+  flex: 1;
   background-color: white;
   display: flex;
   align-items: stretch;
@@ -224,7 +229,7 @@ header .complex {
   font-size: 0.8em;
 }
 header .complex:hover {
-  color: #a6acb1;
+  color: #ffe8ed;
 }
 header .wrapper {
   gap: 1em;
@@ -235,19 +240,36 @@ main {
   background-color: #eff1f4;
   position: relative;
 }
-main #pass_menu {
-  flex-direction: column;
-  gap: 1em;
-  padding: 2em;
-  background-color: white;
-  width: 300px;
+main #pass_menu,
+main #calendar_wrapper,
+main #result {
+  display: none;
+}
+main .popup {
+  background-color: #ffe8ed;
   position: absolute;
   top: -2em;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 5px;
   box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
-  display: none;
+}
+main .popup .ok {
+  margin: 1em auto 0;
+  display: block;
+  padding: 1em;
+  border-radius: 2em;
+  box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+  cursor: pointer;
+  background: #f74068;
+  color: white;
+  border: none;
+}
+main #pass_menu {
+  flex-direction: column;
+  gap: 1em;
+  padding: 2em;
+  width: 300px;
 }
 main #pass_menu .pass_type {
   display: flex;
@@ -259,33 +281,33 @@ main #pass_menu p {
   color: gray;
   font-weight: bold;
 }
-main #pass_menu button {
+main #pass_menu .pass_number button {
   width: 2em;
   height: 2em;
   position: relative;
   border: none;
   background-color: white;
 }
-main #pass_menu button::after {
+main #pass_menu .pass_number button::after {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-main #pass_menu button.plus::after {
+main #pass_menu .pass_number button.plus::after {
   content: "+";
 }
-main #pass_menu button.plus::after {
+main #pass_menu .pass_number button.plus::after {
   content: "-";
 }
-main #pass_menu button:disabled {
+main #pass_menu .pass_number button:disabled {
   background-color: #eff1f4;
   box-shadow: none;
 }
-main #pass_menu .pass_class li,
-main #pass_menu button {
+main #pass_menu .pass_class li {
   border-radius: 1em;
   box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+  background-color: white;
   cursor: pointer;
 }
 main #pass_menu ul {
@@ -306,33 +328,11 @@ main #pass_menu ul.pass_class li.active {
 }
 main #pass_menu .ok {
   width: 100%;
-  margin-top: 1em;
-}
-main #pass_menu .ok:hover {
-  color: white;
-  background-color: #f74068;
 }
 main #calendar_wrapper {
-  display: none;
   padding: 1em;
   gap: 1em;
-  background-color: white;
-  position: absolute;
-  top: -2em;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px;
-  box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
-}
-main #calendar_wrapper .ok {
-  margin: 1em auto 0;
-  display: block;
-  padding: 1em;
-  border-radius: 2em;
-  box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
-  cursor: pointer;
-  background: #f74068;
-  border: none;
+  flex-direction: column;
 }
 main #calendar {
   display: flex;
@@ -393,7 +393,7 @@ main #calendar .today {
 main #calendar .selected {
   border-top: 1px solid #a6acb1;
   border-bottom: 1px solid #a6acb1;
-  background-color: #ffe8ed;
+  background-color: #ffa9bc;
 }
 main #calendar .borderdate,
 main #calendar .startdate,
@@ -413,6 +413,13 @@ main #calendar .enddate {
   border-right: 1px solid #a6acb1;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+main #result {
+  padding: 1.5em 2em;
+}
+main #result p {
+  line-height: 2em;
+  text-align: center;
 }
 
 .promo {
@@ -589,7 +596,7 @@ main #calendar .enddate {
 }
 .content .top10_header a {
   text-decoration: none;
-  color: #3a92f8;
+  color: #8853dd;
   font-size: 0.8em;
 }
 .content .top10_header a:hover {
@@ -611,7 +618,7 @@ main #calendar .enddate {
 }
 .content .top10 ol li div a {
   text-decoration: none;
-  color: #3a92f8;
+  color: #8853dd;
 }
 .content .top10 ol li div a:hover {
   color: #f74068;
@@ -652,7 +659,7 @@ main #calendar .enddate {
 .content .faq article ul a {
   font-size: 0.95em;
   text-decoration: none;
-  color: #3a92f8;
+  color: #8853dd;
 }
 .content .faq article ul a:hover {
   color: #f74068;
@@ -799,7 +806,7 @@ footer .categories_column .all {
   width: 100%;
   padding-bottom: 2em;
   display: block;
-  color: #3a92f8;
+  color: #8853dd;
   text-decoration: none;
 }
 footer .categories_column .all::after {
@@ -868,10 +875,16 @@ footer .links_buttons li {
   padding: 1em;
 }
 footer .links_buttons_partners {
-  border: 1px solid #3a92f8;
+  border: 1px solid #8853dd;
+}
+footer .links_buttons_partners:hover {
+  background-color: #8853dd;
+}
+footer .links_buttons_partners:hover a {
+  color: #ffa9bc;
 }
 footer .links_buttons_partners a {
-  color: #3a92f8;
+  color: #8853dd;
 }
 footer .links_buttons_app ul {
   display: flex;

@@ -18,5 +18,26 @@
     { "id": 15, "name": "Wizz Air Украина", "rating": 4.2 },
     { "id": 15, "name": "Ryanair", "rating": 4.2 },
     { "id": 15, "name": "Air Baltic", "rating": 4.2 }
+  ],
+  "cities": [
+    { "id": 1, "name": "Анкара", "value": "ankara" },
+    { "id": 2, "name": "Токио", "value": "tokyo" },
+    { "id": 3, "name": "Дели", "value": "delhi" },
+    { "id": 4, "name": "Шанхай", "value": "shanghai" },
+    { "id": 5, "name": "Сан-Паулу", "value": "sao_paulo" },
+    { "id": 6, "name": "Каир", "value": "cairo" },
+    { "id": 7, "name": "Пекин", "value": "beijing" },
+    { "id": 8, "name": "Лондон", "value": "london" },
+    { "id": 9, "name": "Нью-Йорк", "value": "new_york" },
+    { "id": 10, "name": "Рим", "value": "rome" },
+    { "id": 11, "name": "Гонконг", "value": "hong_kong" },
+    { "id": 12, "name": "Мадрид", "value": "madrid" },
+    { "id": 13, "name": "Киото", "value": "kyoto" },
+    { "id": 14, "name": "Венеция", "value": "venice" },
+    { "id": 15, "name": "Москва", "value": "amsterdam" },
+    { "id": 16, "name": "Амстердам", "value": "amsterdam" },
+    { "id": 16, "name": "Париж", "value": "amsterdam" },
+    { "id": 16, "name": "Киев", "value": "amsterdam" },
+    { "id": 16, "name": "Санкт-Петербург", "value": "amsterdam" }
   ]
 }

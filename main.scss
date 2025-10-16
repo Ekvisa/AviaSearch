@@ -6,6 +6,10 @@
   font-style: normal;
 }
 
+.result {
+  white-space: pre-line;
+}
+
 $headerBG: #7413dc;
 $brightColor: #f74068;
 $titleColor: #ffa9bc;
@@ -14,9 +18,21 @@ $highlightColor: #d0d1fb;
 $mainBG: #eff1f4;
 $mainText: #212f3d;
 $lightText: #a6acb1;
-$linkColor: #3a92f8;
-$mainNavigation: #8853dd;
+$linkColor: #8853dd;
+// $mainNavigation: #8853dd;
 $green: #72b62b;
+// $linkColor: #3a92f8;//6c3af8
+
+// $headerBG: #6a1fcf; // чуть мягче, чем было, глубже и теплее
+// $brightColor: #ef4a6b; // мягкий малиново-розовый вместо неонового
+// $titleColor: #ffb3c8; // нежный клубничный мусс
+// $delicateColor: #fff0f3; // почти как облако с розовым оттенком
+// $highlightColor: #d7d8fb; // светлее и чуть теплее, чем раньше
+// $mainBG: #f3f4f7; // немного чище белый фон
+// $mainText: #212f3d; // без изменений
+// $lightText: #a6acb1; // без изменений
+// $linkColor: #8c63e0; // чуть теплее и ярче, дружит с $headerBG
+// $green: #78c236; // свежий зелёный, но не ядовитый
 
 a {
   color: inherit;
@@ -59,7 +75,7 @@ body {
 
 header {
   color: white;
-  background-color: $headerBG;
+  background-color: $linkColor;
   padding: 1em 0 2em;
   width: 100%;
   nav {
@@ -74,7 +90,7 @@ header {
           text-decoration: none;
           font-size: 0.75em;
           &:hover {
-            color: $lightText;
+            color: $delicateColor;
           }
           span {
             @media (max-width: 1024px) {
@@ -115,7 +131,7 @@ header {
         color: white;
         flex: 0 0 auto;
         border-radius: 1.5em;
-        background-color: $mainNavigation;
+        background-color: $headerBG;
         padding: 0.5em 1.5em;
         font-size: 0.75em;
         font-weight: bold;
@@ -130,7 +146,7 @@ header {
         &:hover {
           background-color: white;
           a {
-            color: black;
+            color: $headerBG;
           }
         }
         a {
@@ -157,7 +173,7 @@ header {
       }
       border-radius: 5px;
       overflow: hidden;
-
+      flex: 1;
       background-color: white;
       @include flex(stretch, space-between, row, 0);
       div {
@@ -227,7 +243,7 @@ header {
     text-decoration: none;
     font-size: 0.8em;
     &:hover {
-      color: $lightText;
+      color: $delicateColor;
     }
   }
   .wrapper {
@@ -239,18 +255,37 @@ main {
   flex: 1; // Занимает оставшееся пространство, чтобы футер был снизу
   background-color: $mainBG;
   position: relative;
-  #pass_menu {
-    flex-direction: column;
-    gap: 1em;
-    padding: 2em;
-    background-color: white;
-    width: 300px;
+  #pass_menu,
+  #calendar_wrapper,
+  #result {
+    display: none;
+  }
+  .popup {
+    background-color: $delicateColor;
     position: absolute;
     top: -2em;
     left: 50%;
     transform: translateX(-50%);
     @include shadowed;
-    display: none;
+    .ok {
+      margin: 1em auto 0;
+      display: block;
+      padding: 1em;
+      border-radius: 2em;
+      box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+      cursor: pointer;
+      background: #f74068;
+      color: white;
+      border: none;
+    }
+  }
+  #pass_menu {
+    flex-direction: column;
+    gap: 1em;
+    padding: 2em;
+
+    width: 300px;
+
     .pass_type {
       display: flex;
       justify-content: space-between;
@@ -261,35 +296,38 @@ main {
       color: gray;
       font-weight: bold;
     }
-    button {
-      width: 2em;
-      height: 2em;
-      position: relative;
-      border: none;
-      background-color: white;
-      &::after {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      &.plus {
+    .pass_number {
+      button {
+        width: 2em;
+        height: 2em;
+        position: relative;
+        border: none;
+        background-color: white;
         &::after {
-          content: "+";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
-        &::after {
-          content: "-";
+        &.plus {
+          &::after {
+            content: "+";
+          }
+          &::after {
+            content: "-";
+          }
         }
-      }
-      &:disabled {
-        background-color: $mainBG;
-        box-shadow: none;
+        &:disabled {
+          background-color: $mainBG;
+          box-shadow: none;
+        }
       }
     }
-    .pass_class li,
-    button {
+
+    .pass_class li {
       border-radius: 1em;
       box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
+      background-color: white;
       cursor: pointer;
     }
     ul {
@@ -309,35 +347,13 @@ main {
       }
     }
     .ok {
-      &:hover {
-        color: white;
-        background-color: $brightColor;
-      }
       width: 100%;
-      margin-top: 1em;
     }
   }
   #calendar_wrapper {
-    display: none;
     padding: 1em;
     gap: 1em;
-    background-color: white;
-
-    position: absolute;
-    top: -2em;
-    left: 50%;
-    transform: translateX(-50%);
-    @include shadowed();
-    .ok {
-      margin: 1em auto 0;
-      display: block;
-      padding: 1em;
-      border-radius: 2em;
-      box-shadow: 0 0 0.5em rgba(128, 128, 128, 0.5);
-      cursor: pointer;
-      background: $brightColor;
-      border: none;
-    }
+    flex-direction: column;
   }
   #calendar {
     display: flex;
@@ -404,7 +420,7 @@ main {
     .selected {
       border-top: 1px solid $lightText;
       border-bottom: 1px solid $lightText;
-      background-color: $delicateColor;
+      background-color: $titleColor;
     }
 
     .borderdate,
@@ -427,6 +443,13 @@ main {
       border-right: 1px solid $lightText;
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
+    }
+  }
+  #result {
+    padding: 1.5em 2em;
+    p {
+      line-height: 2em;
+      text-align: center;
     }
   }
 }
@@ -824,6 +847,12 @@ footer {
       }
       &_partners {
         border: 1px solid $linkColor;
+        &:hover {
+          background-color: $linkColor;
+          a {
+            color: $titleColor;
+          }
+        }
 
         a {
           color: $linkColor;

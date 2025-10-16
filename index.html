@@ -48,21 +48,11 @@
         <form action="" class="search">
           <div class="inputs">
             <div class="cities">
-              <!-- <input id="from" type="text" placeholder="Откуда" />
-              <input id="to" type="text" placeholder="Куда" /> -->
               <select name="city" id="from">
                 <option value="">Откуда</option>
-                <!-- <option value="petersburg">Санкт-Петербург</option>
-                <option value="samara">Самара</option>
-                <option value="perm">Пермь</option>
-                <option value="novosibirsk">Новосибирск</option> -->
               </select>
               <select name="city" id="to">
                 <option value="">Куда</option>
-                <!-- <option value="petersburg">Санкт-Петербург</option>
-                <option value="samara">Самара</option>
-                <option value="perm">Пермь</option>
-                <option value="novosibirsk">Новосибирск</option> -->
               </select>
             </div>
             <div class="dates">
@@ -78,7 +68,7 @@
               />
             </div>
           </div>
-          <button>Найти</button>
+          <button type="button">Найти</button>
         </form>
         <a href="#" class="complex">
           <i class="fa-solid fa-route"></i> Сложный маршрут
@@ -159,38 +149,7 @@
               <a href="#">Подробнее</a>
             </div>
             <article>
-              <ol>
-                <!-- <li>
-                  <div><a href="#">Эмирейтс</a> <b>4.7</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Катар Эйрвейз</a> <b>4.7</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Тюркиш Эрлайнз</a> <b>4.7</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Сингапур Эйрлайнз</a> <b>4.7</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Кореан Эйр</a> <b>4.7</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Этихад Эйрвэйз</a> <b>4.6</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Катай Пасифик</a> <b>4.5</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Эйр Астана</a> <b>4.5</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Верджин Атлантик Эйрвэйз</a> <b>4.5</b></div>
-                </li>
-                <li>
-                  <div><a href="#">Эйр Нью Зиланд</a> <b>4.5</b></div>
-                </li> -->
-              </ol>
+              <ol></ol>
             </article>
           </div>
           <div class="content_item hot">
@@ -268,7 +227,7 @@
         </section>
       </div>
 
-      <div id="calendar_wrapper">
+      <div id="calendar_wrapper" class="popup">
         <div id="calendar">
           <div class="calendarsheet">
             <button type="button" id="prev">&lt</button>
@@ -286,7 +245,7 @@
         <button class="ok">OK</button>
       </div>
 
-      <div id="pass_menu">
+      <div id="pass_menu" class="popup">
         <p>Максимум 9 пассажиров</p>
         <ul class="pass_number">
           <li class="pass_type" data-type="adults">
@@ -320,6 +279,11 @@
           <li>Бизнес</li>
           <li>Эконом</li>
         </ul>
+        <button class="ok">OK</button>
+      </div>
+
+      <div id="result" class="popup">
+        <p></p>
         <button class="ok">OK</button>
       </div>
     </main>
@@ -371,12 +335,12 @@
           <li class="categories_column">
             <h4>Аэропорты</h4>
             <ul class="categories_column_list">
-              <li><a href="#"></a>Ф. Шопен</li>
-              <li><a href="#"></a>Франкфурт Интернешнл</li>
-              <li><a href="#"></a>Аэропорт Кишинев</li>
-              <li><a href="#"></a>Фиумичино</li>
-              <li><a href="#"></a>Аэропорт Стамбула</li>
-              <li><a href="#"></a>Шарль де Голль</li>
+              <li><a href="#">Ф. Шопен</a></li>
+              <li><a href="#">Франкфурт Интернешнл</a></li>
+              <li><a href="#">Аэропорт Кишинев</a></li>
+              <li><a href="#">Фиумичино</a></li>
+              <li><a href="#">Аэропорт Стамбула</a></li>
+              <li><a href="#">Шарль де Голль</a></li>
             </ul>
             <a class="all" href="#">Все аэропорты</a>
           </li>

@@ -1,8 +1,33 @@
 //////////////////////////////////////////////////////////////////////////////////
+// Выбор городов:
+const from = document.querySelector("#from");
+const to = document.querySelector("#to");
+
+function getCities() {
+  fetch("http://localhost:3000/cities")
+    .then((Response) => Response.json())
+    .then((data) => {
+      showCities(from, data);
+      showCities(to, data);
+    });
+}
+
+getCities();
+
+function showCities(sel, arr) {
+  arr.forEach((city) => {
+    const option = document.createElement("option");
+    option.value = city.value;
+    option.textContent = city.name;
+    sel.append(option);
+  });
+}
+
+//////////////////////////////////////////////////////////////////////////////////
 // Заполнение количества пассажиров и типа билетов:
 const openPassMenu = document.querySelector("#passengers");
 const passMenu = document.querySelector("#pass_menu");
-const okPass = passMenu.querySelector(".ok");
+setupPopup(openPassMenu, passMenu);
 let numberOutput = 1;
 let categoryOutput = "любой";
 openPassMenu.value = `${numberOutput} ${categoryOutput}`;
@@ -34,21 +59,6 @@ numberOutput = countPassengers(passengers);
 let ticketClass = [...ticketsClasses][0].textContent;
 categoryOutput = ticketClass;
 openPassMenu.value = `${numberOutput} ${categoryOutput}`;
-
-let isPassMenuShown = false;
-openPassMenu.addEventListener("click", () => {
-  console.log(passMenu);
-  if (isPassMenuShown) {
-    passMenu.style.display = "none";
-  } else {
-    passMenu.style.display = "flex";
-  }
-  isPassMenuShown = !isPassMenuShown;
-});
-okPass.addEventListener("click", () => {
-  passMenu.style.display = "none";
-  isPassMenuShown = !isPassMenuShown;
-});
 
 // Выбор пассажиров:
 passengersUl.addEventListener("click", (e) => {
@@ -146,6 +156,7 @@ function showCompanies(arr) {
     const li = document.createElement("li");
     const box = document.createElement("div");
     const name = document.createElement("a");
+    name.href = "#";
     const rating = document.createElement("b");
     name.textContent = element.name;
     rating.textContent = element.rating;
@@ -233,6 +244,7 @@ function printDates(s, fromDate, toDate) {
       if (compareDates(dateForOutput, today) >= 0) {
         dateElement.classList.add("active");
         dateElement.addEventListener("click", (event) => {
+          event.stopPropagation(); // не дать событию всплыть до document
           createRange(event.target);
         });
         // ...а если ещё и равна сегодняшней, то пометим её дополнительным классом:
@@ -379,25 +391,104 @@ function clearSheet(s) {
 
 createCalendar();
 
-const calendar = document.getElementById("calendar_wrapper");
+// Организуем показ блока
+const calendarPopup = document.querySelector("#calendar_wrapper");
+const calendarCall = document.querySelector(".inputs .dates");
+setupPopup(calendarCall, calendarPopup);
 
-// let showCalendar = false;
-document.querySelectorAll(".dates input").forEach((e) =>
-  e.addEventListener("click", () => {
-    console.log(calendar);
-    calendar.style.display = "block";
-    // if (showCalendar) {
-    //   calendar.style.display = "none";
-    // } else {
-    //   calendar.style.display = "block";
-    // }
-    // showCalendar = !showCalendar;
-  })
-);
+//////////////////////////////////////////////////////////////////////////////////
+// Вывод результата поиска:
+const find = document.querySelector(".search button");
+const result = document.querySelector("#result");
+setupPopup(find, result);
 
-document
-  .querySelector("#calendar_wrapper .ok")
-  .addEventListener("click", () => {
-    console.log(calendar);
-    calendar.style.display = "none";
+find.addEventListener("click", () => {
+  showResult(from, to);
+});
+
+function showResult(f, t) {
+  console.log("выше крыш");
+  // const text = `Выберите направление`;
+  const p = result.querySelector("p");
+  // result.append(p);
+  if (from.value === "" || to.value === "") {
+    p.innerHTML = `Выберите направление`;
+  } else {
+    const selectedFrom = f.options[f.selectedIndex].text;
+    const selectedTo = t.options[t.selectedIndex].text;
+    p.innerHTML = `💖<br>Где-то выше крыш обгоняет звук<br>рейс <b>${selectedFrom} - ${selectedTo}</b>.<br><br>Поиск — первый шаг к мечте!<br>✈️`;
+  }
+  result.style.display = "block";
+}
+
+// Показ и скрытие блока popup (по кнопке, по клику на кусочек формы openButton, по клику за пределами блока):
+function setupPopup(openButton, popup) {
+  const okButton = popup.querySelector(".ok");
+  const popups = document.querySelectorAll(".popup");
+
+  openButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    // Сначала закрываем все попапы
+    popups.forEach((p) => (p.style.display = "none"));
+    // Потом показываем нужный
+    popup.style.display = "flex";
   });
+
+  okButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    popup.style.display = "none";
+  });
+}
+
+// Глобальное закрытие попапов по клику вне
+document.addEventListener("click", (e) => {
+  const popups = document.querySelectorAll(".popup");
+  const isInsidePopup = e.target.closest(".popup");
+  const isPopupButton = e.target.closest(
+    "#passengers, .inputs .dates, .search button"
+  );
+
+  // Если клик не по кнопке, открывающей попап, и не внутри попапа — закрываем все
+  if (!isInsidePopup && !isPopupButton) {
+    popups.forEach((p) => (p.style.display = "none"));
+  }
+});
+
+// function setupPopup(openButton, popup) {
+//   const okButton = popup.querySelector(".ok");
+//   const popups = document.querySelectorAll(".popup");
+
+//   // Открытие по форме
+//   openButton.addEventListener("click", (e) => {
+//     e.stopPropagation();
+//     // console.log("Открытие по форме");
+
+//     // Сначала закрываем все попапы
+//     popups.forEach((p) => (p.style.display = "none"));
+//     // console.log("закрываем все попапы");
+
+//     // Потом показываем нужный
+//     popup.style.display = "flex";
+//     // console.log("показываем нужный");
+//   });
+
+//   // Закрытие по кнопке внутри попапа
+//   okButton.addEventListener("click", (e) => {
+//     e.stopPropagation();
+//     popup.style.display = "none";
+//     // console.log("Закрытие по кнопке внутри попапа");
+//   });
+
+//   // Закрытие по клику вне попапа
+//   document.addEventListener("click", (e) => {
+//     console.log(popup);
+//     console.log(openButton);
+//     console.log(e.target);
+//     console.log(!popup.contains(e.target) && e.target !== openButton);
+
+//     if (!popup.contains(e.target) && e.target !== openButton) {
+//       popup.style.display = "none";
+//     }
+//     // console.log("Закрытие по клику вне попапа");
+//   });
+// }
