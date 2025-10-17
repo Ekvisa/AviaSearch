@@ -4,7 +4,8 @@ const from = document.querySelector("#from");
 const to = document.querySelector("#to");
 
 function getCities() {
-  fetch("http://localhost:3000/cities")
+  // http://localhost:3000/cities
+  fetch("https://aviasearch.onrender.com/cities")
     .then((Response) => Response.json())
     .then((data) => {
       showCities(from, data);
@@ -138,7 +139,8 @@ function switchButtons(btns, isAvailable) {
 //////////////////////////////////////////////////////////////////////////////////
 //Вытащим топ-10 компаний из джейсона:
 function getCompanies() {
-  fetch("http://localhost:3000/companies")
+  // http://localhost:3000/companies
+  fetch("https://aviasearch.onrender.com/companies")
     .then((Response) => Response.json())
     .then((data) => {
       showCompanies(data);
